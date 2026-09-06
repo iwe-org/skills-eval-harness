@@ -1,0 +1,13 @@
+schema_version: 1
+id: skill-guidance-efficiency-ab-smoke
+kind: paired
+default_samples: 1
+scenarios:
+  - summarize-one-topic
+arms:
+  - id: skill
+    skill: true
+    role: treatment
+  - id: no-skill
+    skill: false
+    role: control

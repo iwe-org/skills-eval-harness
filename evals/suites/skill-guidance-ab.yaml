@@ -1,0 +1,18 @@
+schema_version: 1
+id: skill-guidance-efficiency-ab
+kind: paired
+default_samples: 10
+scenarios:
+  - summarize-one-topic
+  - read-one-note-with-parent-context
+  - list-and-sort-typed-notes
+  - discover-and-retrieve-bounded-multi-hop-context
+  - query-structured-metadata-without-scanning-files
+  - ambiguous-discovery-with-one-follow-up
+arms:
+  - id: skill
+    skill: true
+    role: treatment
+  - id: no-skill
+    skill: false
+    role: control

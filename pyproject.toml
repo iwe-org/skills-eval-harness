@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "skills-eval-harness"
+version = "0.1.0"
+description = "Reproducible Harbor-based evaluation harness for IWE skills"
+requires-python = ">=3.13"
+dependencies = [
+  "harbor==0.21.0",
+  "openai==2.54.0",
+  "pydantic==2.12.5",
+  "PyYAML==6.0.3",
+]
+
+[dependency-groups]
+dev = [
+  "pytest==8.4.2",
+  "ruff==0.12.10",
+]
+
+[project.scripts]
+skills-eval = "skills_eval_harness.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/skills_eval_harness"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+exclude = ["tests/eval"]

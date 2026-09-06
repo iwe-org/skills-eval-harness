@@ -1,0 +1,356 @@
+schema_version: 1
+scenarios:
+- id: discover-and-retrieve-bounded-multi-hop-context
+  assertions:
+  - type: unchanged_except
+    values: []
+- id: query-structured-metadata-without-scanning-files
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_matches_all
+    values:
+    - (?i)(?<![A-Za-z0-9_-])power(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])morality(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])bge-019(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])bge-260(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])bge(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])power-dynamics(?![A-Za-z0-9_-])
+  - type: response_matches_all
+    values:
+    - (?i)(?<![A-Za-z0-9_-])bge-006(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])bge-056(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])bge-190(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])bge-197(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])bge-259(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])virtue-across-centuries(?![A-Za-z0-9_-])
+    - (?i)(?<![A-Za-z0-9_-])moral-systems(?![A-Za-z0-9_-])
+- id: apply-a-guarded-structured-block-update
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/eval-roadmap.md
+  - type: file_contains_all
+    path: graph/eval-roadmap.md
+    values:
+    - '## Aims'
+    - Reviewed by the evaluation agent.
+    - '## Notes'
+    - Preserve this section.
+  - type: file_excludes_all
+    path: graph/eval-roadmap.md
+    values:
+    - '## Goals'
+- id: refactor-an-inclusion-link-without-breaking-the-graph
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/eval-plan.md
+    new_globs:
+    - pattern: graph/*.md
+      count: 1
+  - type: extracted_section
+    path: graph/eval-plan.md
+    new_pattern: graph/*.md
+    heading: Architecture
+    body: Use a sealed evidence pipeline.
+    source_preserves:
+    - '## Overview'
+    - Prepared plan.
+    - '## Delivery'
+    - Publish only validated results.
+- id: refuse-an-unbounded-destructive-request
+  assertions:
+  - type: unchanged_except
+    values: []
+- id: create-and-validate-a-schema-bound-document
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/meetings/evaluation-sync.md
+- id: ambiguous-discovery-with-one-follow-up
+  assertions:
+  - type: unchanged_except
+    values: []
+- id: fallback-when-iwe-is-unavailable
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: targeted_fallback_read
+    path: graph/eval-roadmap.md
+  - type: response_contains_all
+    values:
+    - Ready for review.
+- id: fix-code-without-activating-iwe
+  assertions:
+  - type: unchanged_except
+    values:
+    - src/retry.py
+  - type: python_unittest
+    module: tests/test_retry.py
+- id: read-one-known-note
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - core-beta
+    - direct implementation checklist
+- id: list-and-sort-typed-notes
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_ordered
+    values:
+    - core-gamma
+    - core-alpha
+  - type: response_contains_all
+    values:
+    - '3'
+    - '2'
+- id: count-a-typed-cohort
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - '2'
+- id: show-a-bounded-subtree
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - core-alpha
+    - core-beta
+- id: read-one-note-with-children
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - core-alpha
+    - core-beta
+    - Coordinates the release
+    - direct implementation checklist
+- id: validate-a-known-schema-scope
+  assertions:
+  - type: unchanged_except
+    values: []
+- id: create-a-quick-note
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/release-scratchpad.md
+  - type: file_contains_all
+    path: graph/release-scratchpad.md
+    values:
+    - '# Release Scratchpad'
+    - Collect final checks.
+- id: update-typed-frontmatter
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/core-edit.md
+  - type: frontmatter_equals
+    path: graph/core-edit.md
+    values:
+      type: note
+      reviewed: true
+  - type: frontmatter_absent
+    path: graph/core-edit.md
+    values:
+    - temporary
+  - type: file_contains_all
+    path: graph/core-edit.md
+    values:
+    - Body must remain unchanged.
+- id: replace-an-authoritative-body
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/core-body.md
+  - type: file_contains_all
+    path: graph/core-body.md
+    values:
+    - 'type: note'
+    - 'owner: Ada'
+    - '# Core Body'
+    - Approved final text.
+  - type: file_excludes_all
+    path: graph/core-body.md
+    values:
+    - Draft text.
+- id: edit-local-blocks
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/core-blocks.md
+  - type: file_contains_all
+    path: graph/core-blocks.md
+    values:
+    - '## Keep'
+    - Keep this paragraph.
+    - Ready.
+    - '## Tail'
+    - Tail remains.
+  - type: file_excludes_all
+    path: graph/core-blocks.md
+    values:
+    - '## Remove Me'
+    - Remove this paragraph.
+- id: rename-a-note-and-its-links
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/core-old.md
+    - graph/core-renamed.md
+    - graph/core-referrer.md
+  - type: path_absent
+    path: graph/core-old.md
+  - type: file_contains_all
+    path: graph/core-renamed.md
+    values:
+    - Original target.
+  - type: file_contains_all
+    path: graph/core-referrer.md
+    values:
+    - core-renamed.md
+- id: inline-while-keeping-the-target
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/core-parent.md
+  - type: path_exists
+    path: graph/core-child.md
+  - type: file_contains_all
+    path: graph/core-parent.md
+    values:
+    - Child details.
+- id: attach-to-a-known-destination
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/inbox.md
+  - type: file_contains_all
+    path: graph/inbox.md
+    values:
+    - core-source
+  - type: text_count
+    path: graph/inbox.md
+    value: core-source
+    count: 1
+- id: preview-one-scoped-deletion
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: path_exists
+    path: graph/core-delete.md
+  - type: response_contains_all
+    values:
+    - core-delete
+    - core-referrer
+- id: find-notes-by-body-concept
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - core-gamma
+    - Core Gamma
+- id: summarize-one-topic
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - core-gamma
+  - type: response_matches_all
+    values:
+    - '(?i)\b(?:staged|phased|incremental|gradual|stepwise)\b'
+    - '(?i)\b(?:cutovers?|rollouts?|migrations?)\b'
+    - '(?i)\brollback\b'
+    - '(?i)\b(?:checkpoints?|points?)\b'
+- id: find-one-exact-note-without-body
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - Core Alpha
+    - '2'
+  - type: response_excludes_all
+    values:
+    - Coordinates the release
+- id: find-one-partial-note
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - core-gamma
+    - Core Gamma
+- id: replace-text-in-one-section
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/core-local-text.md
+  - type: file_contains_all
+    path: graph/core-local-text.md
+    values:
+    - Runs in four regions.
+    - '## Operations'
+    - Keep this section.
+  - type: file_excludes_all
+    path: graph/core-local-text.md
+    values:
+    - Runs in three regions.
+- id: replace-one-structured-block
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/core-block-replace.md
+  - type: file_contains_all
+    path: graph/core-block-replace.md
+    values:
+    - '## Overview'
+    - Keep overview.
+    - '## Rollback'
+    - Restore the previous release.
+    - '## Tail'
+    - Keep tail.
+  - type: file_excludes_all
+    path: graph/core-block-replace.md
+    values:
+    - Use the emergency procedure.
+- id: create-one-complete-document
+  assertions:
+  - type: unchanged_except
+    values:
+    - graph/projects/release-checklist.md
+  - type: file_text_exact
+    path: graph/projects/release-checklist.md
+    value: '---
+
+      type: checklist
+
+      owner: Ada
+
+      ---
+
+      # Release Checklist
+
+
+      Verify backups.
+
+      '
+- id: read-one-note-with-parent-context
+  assertions:
+  - type: unchanged_except
+    values: []
+  - type: response_contains_all
+    values:
+    - core-beta
+    - core-alpha
+    - direct implementation checklist
+    - Coordinates the release

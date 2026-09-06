@@ -1,0 +1,10 @@
+{
+  "pkm-demo": {
+    "repository": "https://github.com/iwe-org/pkm-demo.git",
+    "commit": "76007db0c64c3ee170e2a8869a88e7c61909d489"
+  },
+  "seventeen-centuries": {
+    "repository": "https://github.com/iwe-org/seventeen-centuries.git",
+    "commit": "acc00aeabee4fd510c54e9e9033d6b9869aedc3d"
+  }
+}

@@ -1,0 +1,52 @@
+schema_version: 1
+harbor_version: "0.21.0"
+container:
+  image: "docker.io/library/python@sha256:8fef26df932191825664e4957ff488c96dfe64918327634a357a55facbc994d3"
+  agent_image: "skills-eval-agent-toolchain:node22.23.2-codex0.147.0-claude2.1.233"
+  agent_image_id: "sha256:778452e0c755ab2d7b5b79ebf3a1ed099cbc9942a7225717e7da108c3a5b3751"
+  cpus: 2
+  memory_mb: 4096
+  storage_mb: 10240
+  node_version: "22.23.2"
+  network_mode: "allowlist"
+  agent_hosts:
+    codex:
+      - api.openai.com
+      - chatgpt.com
+      - registry.npmjs.org
+      - github.com
+      - objects.githubusercontent.com
+    claude:
+      - api.anthropic.com
+      - registry.npmjs.org
+      - github.com
+      - objects.githubusercontent.com
+  verifier_network_mode: "no-network"
+agents:
+  codex:
+    harbor_name: codex
+    model: openai/gpt-5.6-luna
+    version: "0.147.0"
+    credential_env: OPENAI_API_KEY
+    reasoning: medium
+  claude:
+    harbor_name: claude-code
+    model: anthropic/claude-sonnet-4-6
+    version: "2.1.233"
+    credential_env: ANTHROPIC_API_KEY
+    reasoning: medium
+judge:
+  model: gpt-5.6-sol
+  credential_env: OPENAI_API_KEY
+  reasoning: low
+  timeout_seconds: 300
+  concurrency: 4
+  max_attempts: 3
+execution:
+  timeout_seconds: 1800
+  global_concurrency: 2
+  retries: 0
+runtimes:
+  "0.18.0": 12eb77af823b04472a2b92ceb0d5bacef4e1eda1b38ba0dadfe8f7c33a86ce6c
+skill_repositories:
+  - https://github.com/iwe-org/skills
